@@ -5,7 +5,6 @@ from .models import Post
 from django.views.generic import ListView,DetailView, CreateView,UpdateView,DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-
 # Create your views here.
 def home(request):
     
@@ -41,7 +40,8 @@ class UserPostListView(LoginRequiredMixin,ListView):
 class PostDetailView(DetailView):
     model = Post
 
-class PostCreateView(LoginRequiredMixin,CreateView):
+
+class PostCreateView(LoginRequiredMixin,UserPassesTestMixin,CreateView):
     model = Post
     fields = ['title','content']
     
@@ -49,6 +49,11 @@ class PostCreateView(LoginRequiredMixin,CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+    def test_func(self):
+        p=self.request.user
+        if(p.is_staff):
+            return True
+        return False   
 
 
 class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
