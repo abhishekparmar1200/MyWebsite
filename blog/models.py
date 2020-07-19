@@ -27,4 +27,5 @@ class doubt (models.Model):
         return self.title 
 
 
-   
+    def get_absolute_url(self):
+        return reverse('doubt-detail', kwargs={'pk': self.pk})

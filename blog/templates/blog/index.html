@@ -74,7 +74,7 @@
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Class Work:</h6>
           <a class="collapse-item" href="{% url 'blog-posts' %}">Assignments</a>
-          <a class="collapse-item" href="cards.html">Cards</a>
+          <a class="collapse-item" href="{% url 'blog-doubts' %}">Class-Doubts</a>
         </div>
       </div>
     </li>
@@ -125,7 +125,7 @@
 
     <!-- Nav Item - Charts -->
     {% url 'blog-posts' as bp %}
-    
+    {% url 'blog-doubts' as bd %}
     <li class="nav-item">
     
       {% if  request.path == bp %}
@@ -133,12 +133,18 @@
           <i class="fas fa-fw fa-chart-area"></i>
           <span>New Post</span></a>
 
+      {% elif  request.path == bd %}
+      <a class="nav-link" href="{% url 'doubt-create'%}">
+        <i class="fas fa-fw fa-chart-area"></i>
+        <span>New Post</span></a>   
+
       {%else%}
     
         <a class="nav-link" href="charts.html">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Charts</span></a>
-      {%endif%}    
+      {%endif%} 
+        
           
     </li>
 

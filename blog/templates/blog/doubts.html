@@ -15,7 +15,7 @@
                         <a class="mr-2" href="{% url 'user-posts' i.author.username %}">{{ i.author }}</a>
                         <small class="text-muted">{{ i.date_posted|date:"F d, Y" }}</small>
                     </div>
-                    <h2><a class="article-title" href="{% url 'post-detail' i.id %}">{{ i.title }}</a></h2>
+                    <h2><a class="article-title" href="{% url 'doubt-detail' i.id %}">{{ i.title }}</a></h2>
                     <p class="article-content">{{ i.content }}</p>
                     </div>
                 </article>

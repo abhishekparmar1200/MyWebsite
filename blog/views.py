@@ -69,7 +69,7 @@ class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     fields = ['title','content']
     
     def form_valid(self,form):
-        form.instance.author = self.request.user
+        form.instance.author = selfLoginRequiredMixin,UserPassesTestMixin,CreateView.request.user
         return super().form_valid(form)
 
     def test_func(self):
@@ -88,7 +88,22 @@ class PostDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
             return True
         return False 
 
-class DoubtListView(PostListView,LoginRequiredMixin,ListView):
+class DoubtListView(PostListView):
      model = doubt
      template_name = 'blog/doubts.html' #<app>/<model>_<viewtype>.html
      context_object_name = 'doubts'
+
+
+class DoubtDetailView(DetailView):
+    model = doubt
+
+
+class DoubtCreateView(LoginRequiredMixin,CreateView):
+    model = doubt
+    fields = ['title','content']
+    
+    def form_valid(self,form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+    
+    
