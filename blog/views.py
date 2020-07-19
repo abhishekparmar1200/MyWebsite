@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-from .models import Post
+from .models import Post,doubt
 from django.views.generic import ListView,DetailView, CreateView,UpdateView,DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
@@ -17,6 +17,12 @@ def posts(request):
 
     return render(request, 'blog/posts.html', context)
 
+def doubts(request):
+    context = {'doubts': doubt.objects.all()
+    }
+
+    return render(request, 'blog/doubts.html', context)
+
 
 class PostListView(LoginRequiredMixin,ListView):
     model = Post
@@ -24,6 +30,8 @@ class PostListView(LoginRequiredMixin,ListView):
     context_object_name = 'posts'
     ordering = ['-date_posted']
     paginate_by = 5
+
+
 
 class UserPostListView(LoginRequiredMixin,ListView):
     model = Post
@@ -79,3 +87,8 @@ class PostDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
         if( self.request.user == post.author):
             return True
         return False 
+
+class DoubtListView(PostListView,LoginRequiredMixin,ListView):
+     model = doubt
+     template_name = 'blog/doubts.html' #<app>/<model>_<viewtype>.html
+     context_object_name = 'doubts'
